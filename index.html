@@ -18,7 +18,7 @@
   <div id="app">
     <header class="hero-section">
       <nav class="navbar">
-        <div class="logo">Incubia AI</div>
+        <div class="logo">IncubIA</div>
         <a href="#signup" class="btn-secondary">Acceso Anticipado</a>
       </nav>
 
@@ -42,14 +42,11 @@
             <div class="iphone-frame">
               <div class="iphone-notch"></div>
               <div class="iphone-screen">
-                <div class="video-placeholder vertical-placeholder">
-                  <div class="play-button small-play">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor" />
-                    </svg>
-                  </div>
-                  <span>Demo Vertical</span>
-                </div>
+                <video src="https://rubacademy.com/wp-content/uploads/2026/02/ScreenRecording_01-29-2026-22-26-41_1.mp4"
+                  class="video-element" autoplay loop muted playsinline
+                  style="width: 100%; height: 100%; object-fit: cover;">
+                  Tu navegador no soporta videos.
+                </video>
               </div>
             </div>
           </div>
@@ -133,7 +130,18 @@
               <input type="tel" id="phone" name="phone" placeholder="+51 999 999 999" required>
             </div>
 
-            <button type="submit" class="btn-submit">Solicitar Acceso</button>
+            <div class="form-group">
+              <label for="expertise">Área de expertise</label>
+              <select id="expertise" name="expertise" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="marketing">Marketing</option>
+                <option value="finanzas">Finanzas</option>
+                <option value="software">Desarrollo de Software</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Solicitar Acceso anticipado!</button>
           </form>
         </div>
       </section>

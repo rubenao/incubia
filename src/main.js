@@ -2,34 +2,52 @@ import './style.css'
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#waitlistForm');
-  
+
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      
-      console.log('Form submitted:', data);
-      
-      // Here you would typically send data to your backend
-      // For now, let's simulate a success state
-      
       const button = form.querySelector('button');
       const originalText = button.innerText;
-      
-      button.innerText = '¡Enviado!';
-      button.style.backgroundColor = 'var(--secondary-gradient)'; // Greenish
+
+      // Loading state
+      button.innerText = 'Enviando...';
       button.disabled = true;
-      
-      alert(`¡Gracias ${data.name}! Hemos recibido tu solicitud. Te contactaremos pronto al ${data.phone}.`);
-      
-      setTimeout(() => {
-        form.reset();
+
+      try {
+        const response = await fetch('https://kbk2ycy7.rsrv.host/webhook/9ebb088a-cdba-46c0-902e-9c4df67363cb', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          // Success state
+          button.innerText = '¡Enviado!';
+          button.style.background = 'var(--secondary-gradient)';
+
+          alert(`¡Gracias ${data.name}! Hemos recibido tu información. Nos comunicaremos contigo a la brevedad.`);
+
+          form.reset();
+
+          setTimeout(() => {
+            button.innerText = originalText;
+            button.disabled = false;
+            button.style.background = '';
+          }, 3000);
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un error al enviar el formulario. Por favor intenta nuevamente.');
         button.innerText = originalText;
         button.disabled = false;
-        button.style.backgroundColor = ''; 
-      }, 3000);
+      }
     });
   }
 
@@ -42,12 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
-  
+
   // Interactive Play Button
   const playBtn = document.querySelector('.play-button');
-  if(playBtn) {
+  if (playBtn) {
     playBtn.addEventListener('click', () => {
-        alert("El video demo estará disponible pronto.");
+      alert("El video demo estará disponible pronto.");
     })
   }
 });
